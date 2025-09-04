@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spenden - Donation Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body class="light-theme">
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <span>Spenden</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="explore-causes.html" >Causes</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="theme-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="theme-label">Dark Mode</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Your small act can spark big change.</h1>
+            <p>Spenden makes donating fast and trustworthy. Choose a cause, pick an amount, and get an instant receipt. 100% online, no apps required.</p>
+            <div class="hero-buttons">
+                <a href="#donation-section" class="btn">Start a Donation</a>
+                <a href="explore-causes.html" class="btn btn-outline">Explore Causes</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="donation-section" class="donation-section">
+        <div class="container">
+            <h2 class="section-title">Make a Donation</h2>
+            <p class="section-subtitle">Select a cause, choose an amount, and enter your details. You'll get a printable receipt instantly.</p>
+            
+            <div class="donation-content">
+                <div class="donation-form">
+                    <form id="donationForm">
+                        <div class="form-group">
+                            <label for="donation-type">Donation Type</label>
+                            <div class="donation-categories">
+                                <div class="category-option selected" data-category="money">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span>Money</span>
+                                </div>
+                                <div class="category-option" data-category="food">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>Food</span>
+                                </div>
+                                <div class="category-option" data-category="clothes">
+                                    <i class="fas fa-tshirt"></i>
+                                    <span>Clothes</span>
+                                </div>
+                                <div class="category-option" data-category="books">
+                                    <i class="fas fa-book"></i>
+                                    <span>Books</span>
+                                    <!-- Electronics Donation Section -->
+<div class="form-group" id="electronics-donation" style="display: none;">
+    <label for="electronics-type">Electronics Type</label>
+    <select id="electronics-type" class="form-control">
+        <option value="computers">Computers & Laptops</option>
+        <option value="phones">Mobile Phones & Tablets</option>
+        <option value="appliances">Home Appliances</option>
+        <option value="other-electronics">Other Electronics</option>
+    </select>
+</div>
+
+<div class="form-group" id="electronics-donation-condition" style="display: none;">
+    <label for="electronics-condition">Condition</label>
+    <select id="electronics-condition" class="form-control">
+        <option value="new">New</option>
+        <option value="excellent">Excellent (Used)</option>
+        <option value="good">Good (Used)</option>
+        <option value="fair">Fair (Needs Repair)</option>
+    </select>
+</div>
+
+<div class="form-group" id="electronics-donation-quantity" style="display: none;">
+    <label for="electronics-quantity">Number of Items</label>
+    <input type="number" id="electronics-quantity" class="form-control" placeholder="Enter number of electronic items">
+</div>
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="money-donation">
+                            <label for="cause">Cause</label>
+                            <select id="cause" class="form-control">
+                                <option value="disaster-relief">Disaster Relief</option>
+                                <option value="education">Education</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="environment">Environment</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" id="money-donation">
+                            <label for="currency">Currency</label>
+                            <select id="currency" class="form-control">
+                                <option value="inr" selected>Indian Rupees (₹)</option>
+                                <option value="usd">US Dollar ($)</option>
+                                <option value="eur">Euro (€)</option>
+                                <option value="gbp">British Pound (£)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" id="money-donation">
+                            <label>Donation Frequency</label>
+                            <div class="donation-frequency">
+                                <div class="frequency-option selected" data-frequency="one-time">
+                                    <i class="fas fa-calendar-day"></i>
+                                    <span>One-time</span>
+                                </div>
+                                <div class="frequency-option" data-frequency="monthly">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Monthly</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="money-donation">
+                            <label>Amount</label>
+                            <div class="amount-options">
+                                <div class="amount-option" data-amount="500">₹500</div>
+                                <div class="amount-option" data-amount="1000">₹1,000</div>
+                                <div class="amount-option selected" data-amount="2000">₹2,000</div>
+                                <div class="amount-option" data-amount="5000">₹5,000</div>
+                                <div class="amount-option custom-amount">
+                                    <input type="number" id="customAmount" placeholder="Other">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="food-donation" style="display: none;">
+                            <label for="food-type">Food Type</label>
+                            <select id="food-type" class="form-control">
+                                <option value="grains">Grains & Rice</option>
+                                <option value="canned">Canned Food</option>
+                                <option value="fresh">Fresh Produce</option>
+                                <option value="ready">Ready-to-eat Meals</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" id="food-donation" style="display: none;">
+                            <label for="food-quantity">Quantity (kg)</label>
+                            <input type="number" id="food-quantity" class="form-control" placeholder="Enter quantity in kilograms">
+                        </div>
+                        
+                        <div class="form-group" id="clothes-donation" style="display: none;">
+                            <label for="clothes-type">Clothing Type</label>
+                            <select id="clothes-type" class="form-control">
+                                <option value="adult-male">Adult Male</option>
+                                <option value="adult-female">Adult Female</option>
+                                <option value="children">Children</option>
+                                <option value="infants">Infants</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" id="clothes-donation" style="display: none;">
+                            <label for="clothes-quantity">Number of Items</label>
+                            <input type="number" id="clothes-quantity" class="form-control" placeholder="Enter number of clothing items">
+                        </div>
+                        
+                        <div class="form-group" id="books-donation" style="display: none;">
+                            <label for="books-type">Book Type</label>
+                            <select id="books-type" class="form-control">
+                                <option value="textbooks">Textbooks</option>
+                                <option value="children">Children's Books</option>
+                                <option value="fiction">Fiction</option>
+                                <option value="non-fiction">Non-Fiction</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" id="books-donation" style="display: none;">
+                            <label for="books-quantity">Number of Books</label>
+                            <input type="number" id="books-quantity" class="form-control" placeholder="Enter number of books">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="Your email for receipt">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Your full name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="Your phone number">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">Pickup Address (for physical donations)</label>
+                            <textarea id="address" class="form-control" placeholder="Enter your address for pickup" rows="3"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-donate">Donate Now</button>
+                    </form>
+                </div>
+                
+                <div class="campaign-highlight">
+                    <h3>Campaign Highlight</h3>
+                    <div class="campaign-card">
+                        <h4>Emergency Relief Fund — 2025 Monsoon Response</h4>
+                        
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 42%"></div>
+                            </div>
+                            <div class="progress-stats">
+                                <span>₹4,20,000 raised</span>
+                                <span>Goal: ₹10,00,000</span>
+                            </div>
+                        </div>
+                        
+                        <div class="campaign-stats">
+                            <div class="stat">
+                                <div class="stat-value">12,450</div>
+                                <div class="stat-label">Meals served</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">1,540</div>
+                                <div class="stat-label">Families aided</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">230</div>
+                                <div class="stat-label">Volunteers</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="receipt-preview">
+                        <h3>Receipt Preview</h3>
+                        <p>This is a live preview. You'll get a printable receipt after payment.</p>
+                        
+                        <div class="receipt">
+                            <div class="receipt-header">
+                                <div class="logo">
+                                    <i class="fas fa-hand-holding-heart"></i>
+                                    <span>Spenden</span>
+                                </div>
+                                <div class="receipt-id">#SPN-2025-0892</div>
+                            </div>
+                            
+                            <div class="receipt-body">
+                                <div class="receipt-item">
+                                    <div class="item-name">Disaster Relief - One-time</div>
+                                    <div class="item-amount">₹2,000</div>
+                                </div>
+                                
+                                <div class="receipt-total">
+                                    <div class="total-label">Total</div>
+                                    <div class="total-amount">₹2,000</div>
+                                </div>
+                                
+                                <div class="receipt-date">
+                                    <div class="date-label">Date</div>
+                                    <div class="date-value">September 4, 2025</div>
+                                </div>
+                                
+                                <div class="receipt-donor">
+                                    <div class="donor-label">Donor</div>
+                                    <div class="donor-value">Your Name</div>
+                                </div>
+                            </div>
+                            
+                            <div class="receipt-footer">
+                                <p>Thank you for your generous donation!</p>
+                                <p>This receipt is valid for tax purposes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Spenden</h3>
+                    <p>Making charitable giving simple, transparent, and effective.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Causes</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Tax Exemption</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Spenden. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

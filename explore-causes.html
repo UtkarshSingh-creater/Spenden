@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Causes - Spenden</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #10b981;
+            --text-color: #1e293b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --muted-text: #64748b;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-theme {
+            --primary-color: #3b82f6;
+            --secondary-color: #10b981;
+            --text-color: #e2e8f0;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --muted-text: #94a3b8;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: var(--card-bg);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 16px 0;
+            transition: background-color 0.3s;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 8px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 24px;
+        }
+
+        nav ul li a {
+            color: var(--muted-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary-color);
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-label {
+            font-size: 14px;
+            color: var(--muted-text);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .slider.round {
+            border-radius: 24px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            background: linear-gradient(135deg, #4c6ef5 0%, #3b5bdb 100%);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            max-width: 700px;
+            margin: 0 auto 32px;
+            opacity: 0.9;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            border-radius: 50px;
+            padding: 6px 16px;
+            cursor: pointer;
+        }
+
+        .categories {
+            padding: 40px 0;
+        }
+
+        .categories h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.8rem;
+            color: var(--text-color);
+        }
+
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .category-filter {
+            padding: 8px 20px;
+            border-radius: 50px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-color);
+        }
+
+        .category-filter:hover,
+        .category-filter.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .causes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .cause-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cause-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .cause-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .cause-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .cause-card:hover .cause-img img {
+            transform: scale(1.05);
+        }
+
+        .cause-content {
+            padding: 20px;
+        }
+
+        .cause-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: var(--text-color);
+        }
+
+        .cause-content p {
+            color: var(--muted-text);
+            margin-bottom: 20px;
+        }
+
+        .progress-container {
+            margin-bottom: 16px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--secondary-color);
+            border-radius: 4px;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: var(--muted-text);
+        }
+
+        .cause-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .donors {
+            display: flex;
+            align-items: center;
+        }
+
+        .donor-avatars {
+            display: flex;
+            margin-right: 10px;
+        }
+
+        .donor-avatars img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid white;
+            margin-left: -10px;
+        }
+
+        .donor-avatars img:first-child {
+            margin-left: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            gap: 10px;
+        }
+
+        .pagination button {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-color);
+        }
+
+        .pagination button:hover,
+        .pagination button.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        footer {
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 60px 0 24px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3, .footer-section h4 {
+            margin-bottom: 16px;
+            color: var(--text-color);
+        }
+
+        .footer-section p {
+            color: var(--muted-text);
+            margin-bottom: 16px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-section ul li a {
+            color: var(--muted-text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            color: var(--muted-text);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .causes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            nav ul {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0 12px;
+            }
+            
+            .category-filters {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .theme-toggle {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <span>Spenden</span>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="explore-causes.html" class="active">Causes</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="theme-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="theme-label">Dark Mode</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Explore Causes</h1>
+            <p>Discover meaningful initiatives and support causes that matter to you. Every contribution makes a difference.</p>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for causes...">
+                <button><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="categories">
+        <div class="container">
+            <h2>Browse by Category</h2>
+            <div class="category-filters">
+                <div class="category-filter active">All Causes</div>
+                <div class="category-filter">Education</div>
+                <div class="category-filter">Healthcare</div>
+                <div class="category-filter">Environment</div>
+                <div class="category-filter">Disaster Relief</div>
+                <div class="category-filter">Poverty Alleviation</div>
+                <div class="category-filter">Animal Welfare</div>
+            </div>
+
+            <div class="causes-grid">
+                <!-- Cause 1 -->
+                <div class="cause-card">
+                    <div class="cause-img">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Education for All">
+                    </div>
+                    <div class="cause-content">
+                        <h3>Education for All</h3>
+                        <p>Providing quality education to underprivileged children in rural areas. Help us build schools and provide learning materials.</p>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 65%"></div>
+                            </div>
+                            <div class="progress-stats">
+                                <span>₹3,25,000 raised</span>
+                                <span>Goal: ₹5,00,000</span>
+                            </div>
+                        </div>
+                        <div class="cause-meta">
+                            <div class="donors">
+                                <div class="donor-avatars">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Donor">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Donor">
+                                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Donor">
+                                </div>
+                                <span>+42 donors</span>
+                            </div>
+                            <a href="index.html#donation-section" class="btn">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cause 2 - Fixed Healthcare Image -->
+                <div class="cause-card">
+                    <div class="cause-img">
+                        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Healthcare Access">
+                    </div>
+                    <div class="cause-content">
+                        <h3>Healthcare Access</h3>
+                        <p>Funding medical treatments and healthcare services for those who cannot afford them. Your donation can save lives.</p>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 40%"></div>
+                            </div>
+                            <div class="progress-stats">
+                                <span>₹2,00,000 raised</span>
+                                <span>Goal: ₹5,00,000</span>
+                            </div>
+                        </div>
+                        <div class="cause-meta">
+                            <div class="donors">
+                                <div class="donor-avatars">
+                                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Donor">
+                                    <img src="https://randomuser.me/api/portraits/men/43.jpg" alt="Donor">
+                                </div>
+                                <span>+28 donors</span>
+                            </div>
+                            <a href="index.html#donation-section" class="btn">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cause 3 -->
+                <div class="cause-card">
+                    <div class="cause-img">
+                        <img src="https://images.unsplash.com/photo-1615876234886-fd9a39fda97f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Refugee Support">
+                    </div>
+                    <div class="cause-content">
+                        <h3>Refugee Support</h3>
+                        <p>Providing food, shelter, and essential supplies to families displaced by conflict and natural disasters.</p>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 75%"></div>
+                            </div>
+                            <div class="progress-stats">
+                                <span>₹7,50,000 raised</span>
+                                <span>Goal: ₹10,00,000</span>
+                            </div>
+                        </div>
+                        <div class="cause-meta">
+                            <div class="donors">
+                                <div class="donor-avatars">
+                                    <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Donor">
+                                    <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Donor">
+                                    <img src="https://randomuser.me/api/portraits/women/54.jpg" alt="Donor">
+                                </div>
+                                <span>+67 donors</span>
+                            </div>
+                            <a href="index.html#donation-section" class="btn">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cause 4 -->
+                <div class="cause-card">
+                    <div class="cause-img">
+                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Animal Shelter">
+                    </div>
+                    <div class="cause-content">
+                        <h3>Animal Shelter Support</h3>
+                        <p>Helping us provide food, medical care, and shelter to abandoned and injured animals in our community.</p>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 30%"></div>
+                            </div>
+                            <div class="progress-stats">
+                                <span>₹1,50,000 raised</span>
+                                <span>Goal: ₹5,00,000</span>
+                            </div>
+                        </div>
+                        <div class="cause-meta">
+                            <div class="donors">
+                                <div class="donor-avatars">
+                                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Donor">
+                                    <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Donor">
+                                </div>
+                                <span>+19 donors</span>
+                            </div>
+                            <a href="index.html#donation-section" class="btn">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cause 5 -->
+                <div class="cause-card">
+                    <div class="cause-img">
+                        <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Clean Water">
+                    </div>
+                    <div class="cause-content">
+                        <h3>Clean Water Initiative</h3>
+                        <p>Building wells and water purification systems in communities without access to clean drinking water.</p>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 85%"></div>
+                            </div>
+                            <div class="progress-stats">
+                                <span>₹4,25,000 raised</span>
+                                <span>Goal: ₹5,00,000</span>
+                            </div>
+                        </div>
+                        <div class="cause-meta">
+                            <div class="donors">
+                                <div class="donor-avatars">
+                                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Donor">
+                                    <img src="https://randomuser.me/api/portraits/women/67.jpg" alt="Donor">
+                                    <img src="https://randomuser.me/api/portraits/men/78.jpg" alt="Donor">
+                                </div>
+                                <span>+53 donors</span>
+                            </div>
+                            <a href="index.html#donation-section" class="btn">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cause 6 -->
+                <div class="cause-card">
+                    <div class="cause-img">
+                        <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tree Plantation">
+                    </div>
+                    <div class="cause-content">
+                        <h3>Tree Plantation Drive</h3>
+                        <p>Planting trees to combat climate change and restore ecosystems. Each tree planted helps reduce carbon footprint.</p>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 55%"></div>
+                            </div>
+                            <div class="progress-stats">
+                                <span>₹2,75,000 raised</span>
+                                <span>Goal: ₹5,00,000</span>
+                            </div>
+                        </div>
+                        <div class="cause-meta">
+                            <div class="donors">
+                                <div class="donor-avatars">
+                                    <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Donor">
+                                    <img src="https://randomuser.me/api/portraits/men/34.jpg" alt="Donor">
+                                </div>
+                                <span>+37 donors</span>
+                            </div>
+                            <a href="index.html#donation-section" class="btn">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <button class="active">1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>Next →</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Spenden</h3>
+                    <p>Making charitable giving simple, transparent, and effective. Join us in making a difference in communities around the world.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="explore-causes.html">Causes</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Tax Exemption</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Spenden. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            // Check for saved theme preference or respect OS preference
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                body.classList.add('dark-theme');
+                themeToggle.checked = true;
+            }
+            
+            themeToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    body.classList.add('dark-theme');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    body.classList.remove('dark-theme');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Simple filtering functionality
+            const filters = document.querySelectorAll('.category-filter');
+            
+            filters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    filters.forEach(f => f.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // In a real application, this would filter the causes
+                    // For this demo, we'll just simulate it with a message
+                    console.log('Filtering by: ' + this.textContent);
+                });
+            });
+            
+            // Pagination buttons
+            const paginationButtons = document.querySelectorAll('.pagination button');
+            
+            paginationButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (!this.textContent.includes('Next')) {
+                        paginationButtons.forEach(btn => btn.classList.remove('active'));
+                        this.classList.add('active');
+                    }
+                    // In a real application, this would load the next page of results
+                });
+            });
+            
+            // Search functionality
+            const searchInput = document.querySelector('.search-bar input');
+            const searchButton = document.querySelector('.search-bar button');
+            
+            searchButton.addEventListener('click', function() {
+                performSearch(searchInput.value);
+            });
+            
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch(searchInput.value);
+                }
+            });
+            
+            function performSearch(query) {
+                if (query.trim() !== '') {
+                    // In a real application, this would search through causes
+                    alert('Searching for: ' + query);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
