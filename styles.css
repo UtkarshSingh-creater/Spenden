@@ -462,7 +462,7 @@ input:checked + .slider:before {
 .receipt-preview {
     background: var(--card-bg);
     border-radius: 12px;
-    padding: 24px;
+    padding: 25px;
     box-shadow: var(--shadow);
     transition: background-color 0.3s;
 }
